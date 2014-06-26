@@ -1,34 +1,33 @@
 var app = angular.module("project", ['ngRoute', 'ngTouch', 'ui.gravatar', 'mobile-angular-ui']);
 
-app.config(function($routeProvider, $rootScope) {
+app.run(function($rootScope) {
+    $rootScope.currentdate = new Date();
+    $rootScope.loaderdelay = false;
+});
+
+app.config(function($routeProvider) {
   $routeProvider.when('/', {controller:'CategoriesCtrl', templateUrl:'categories.html'})
 				.when('/tickets/:alias', {controller:'TicketsCtrl', templateUrl:'tickets.html'})
 				.when('/ticket/:catalias/:alias', {controller:'TicketCtrl', templateUrl:'ticket.html'})
 				.when('/my', {controller:'TicketsCtrl', templateUrl:'tickets.html'})
 				.otherwise({redirectTo:'/'});
-  $rootScope.loadingdelay = false;
-  
-  $rootScope.showDelay = function() {
-    $rootScope.loadingdelay = true;
-  }  
 });
 
-app.controller("CategoriesCtrl", function($scope, $http, $rootScope) {
-  $interval($rootScope.showDelay, 1000);
+app.controller("CategoriesCtrl", function($scope, $http, $rootScope, $interval) {
+  $rootScope.loading = true;
+  $interval(function() { $rootScope.loaderdelay = true; }, 500, 1);
   
   $http({method: 'GET', url: '/support/support-tickets?format=json', cache: true}).
     success(function(data, status, headers, config) {
       $scope.categories = data;
-      $rootScope.loading = $rootScope.loadingdelay = false;
+      $rootScope.loading = false;
     }).
     error(function(data, status, headers, config) {
       // log error
     });
-  
-
 });
 
-app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope) {
+app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope, $interval) {
   $rootScope.loading = true;
   if ($routeParams.alias)
     var tickets_url = '/support/support-tickets/'+$routeParams.alias+'?format=json';
@@ -68,7 +67,7 @@ app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope) 
     });
 });
 
-app.controller("TicketCtrl", function($scope, $http, $routeParams, $rootScope) {
+app.controller("TicketCtrl", function($scope, $http, $routeParams, $rootScope, $interval) {
   var ticket_url = '/support/support-tickets/'+$routeParams.catalias+'/'+$routeParams.alias+'?format=json';
 
   $http.get(ticket_url).
