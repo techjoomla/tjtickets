@@ -7,10 +7,15 @@ app.config(function($routeProvider) {
 				.when('/my', {controller:'TicketsCtrl', templateUrl:'tickets.html'})
 				.otherwise({redirectTo:'/'});
   $rootScope.loadingdelay = false;
+  
+  $rootScope.showDelay = function() {
+    $rootScope.loadingdelay = true;
+  }  
 });
 
 app.controller("CategoriesCtrl", function($scope, $http, $rootScope) {
-  $interval($scope.showDelay, 1000);
+  $interval($rootScope.showDelay, 1000);
+  
   $http({method: 'GET', url: '/support/support-tickets?format=json', cache: true}).
     success(function(data, status, headers, config) {
       $scope.categories = data;
@@ -20,9 +25,7 @@ app.controller("CategoriesCtrl", function($scope, $http, $rootScope) {
       // log error
     });
   
-  $scope.showDelay() {
-    $rootScope.loadingdelay = true;
-  }
+
 });
 
 app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope) {
