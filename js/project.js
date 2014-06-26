@@ -15,7 +15,7 @@ app.config(function($routeProvider) {
 
 app.controller("CategoriesCtrl", function($scope, $http, $rootScope, $interval) {
   $rootScope.loading = true;
-  $interval(function() { $rootScope.loaderdelay = true; }, 500, 1);
+  $interval(function() { $rootScope.loadingdelay = true; }, 500, 1);
   
   $http({method: 'GET', url: '/support/support-tickets?format=json', cache: true}).
     success(function(data, status, headers, config) {
