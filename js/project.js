@@ -6,18 +6,23 @@ app.config(function($routeProvider) {
 				.when('/ticket/:catalias/:alias', {controller:'TicketCtrl', templateUrl:'ticket.html'})
 				.when('/my', {controller:'TicketsCtrl', templateUrl:'tickets.html'})
 				.otherwise({redirectTo:'/'});
+  $rootScope.loadingdelay = false;
 });
 
 app.controller("CategoriesCtrl", function($scope, $http, $rootScope) {
-  $rootScope.loading = true;
+  $interval($scope.showDelay, 1000);
   $http({method: 'GET', url: '/support/support-tickets?format=json', cache: true}).
     success(function(data, status, headers, config) {
       $scope.categories = data;
-      $rootScope.loading = false;
+      $rootScope.loading = $rootScope.loadingdelay = false;
     }).
     error(function(data, status, headers, config) {
       // log error
     });
+  
+  $scope.showDelay() {
+    $rootScope.loadingdelay = true;
+  }
 });
 
 app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope) {
