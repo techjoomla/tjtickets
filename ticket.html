@@ -1,0 +1,30 @@
+<div class="panel panel-success scrollable" ng-controller="TicketCtrl">
+	<div class="scrollable-content">
+	<div class="panel-heading" ng-controller="UserCtrl">
+		<!--<img class="pull-left" gravatar-src="user.email" height="40" hspace="5" />-->
+		<div class="">
+			<span>#{{ticket.ats_ticket_id}} - {{ticket.title}} </span><br />
+			<span class="text-muted">Created by {{user.name}} ({{user.email}}) on {{ticket.created_on | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+		</div>
+		<div class="clearfix"></div>
+
+	</div>
+
+	<div ng-controller="PostsCtrl" class="panel-body">
+		<form>
+			<blockquote>
+			<textarea name="comment" class="form-control" rows="3"></textarea>
+			<button class="btn btn-primary" id="comment-submit">Submit</button>
+			</blockquote>
+		</form>
+
+		<div class="bs-callout bs-callout-info" ng-repeat="post in posts">
+			<span class="text-muted">Replied by {{post.created_by}} on {{post.created_on}}</span>
+			<p class="post-content">{{post.content_html}}</p>
+		</div>
+
+	</div>
+	</div>
+</div>
+
+
