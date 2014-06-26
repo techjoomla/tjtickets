@@ -3,6 +3,7 @@ var app = angular.module("project", ['ngRoute', 'ngTouch', 'ui.gravatar', 'mobil
 app.run(function($rootScope) {
     $rootScope.currentdate = new Date();
     $rootScope.loaderdelay = false;
+    $rootScope.showloaderdelay = function() { $rootScope.loadingdelay = true; }
 });
 
 app.config(function($routeProvider) {
@@ -15,7 +16,7 @@ app.config(function($routeProvider) {
 
 app.controller("CategoriesCtrl", function($scope, $http, $rootScope, $interval) {
   $rootScope.loading = true;
-  $interval(function() { $rootScope.loadingdelay = true; }, 500, 1);
+  $interval($rootScope.showloaderdelay, 1500, 1);
   
   $http({method: 'GET', url: '/support/support-tickets?format=json', cache: true}).
     success(function(data, status, headers, config) {
