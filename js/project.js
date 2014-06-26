@@ -1,6 +1,6 @@
 var app = angular.module("project", ['ngRoute', 'ngTouch', 'ui.gravatar', 'mobile-angular-ui']);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $rootScope) {
   $routeProvider.when('/', {controller:'CategoriesCtrl', templateUrl:'categories.html'})
 				.when('/tickets/:alias', {controller:'TicketsCtrl', templateUrl:'tickets.html'})
 				.when('/ticket/:catalias/:alias', {controller:'TicketCtrl', templateUrl:'ticket.html'})
