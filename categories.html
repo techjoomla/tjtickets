@@ -1,7 +1,5 @@
 <div ng-controller="CategoriesCtrl" class="scrollable">
-	<ul class="list-group scrollable-content">
-		<li class="list-group-item" ng-repeat="cat in categories">
-			<a href="/ng/#/tickets/{{cat.alias}}">{{cat.title}}</a>
-		</li>
-	</ul>
+	<div class="list-group scrollable-content">
+		<a href="/ng/#/tickets/{{cat.alias}}" class="list-group-item" ng-repeat="cat in categories">{{cat.title}}</a>
+	</div>
 </div>
