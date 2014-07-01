@@ -1,6 +1,6 @@
 <div ng-controller="TicketsCtrl" class="scrollable">
 	<div class="list-group scrollable-content">
-	  <a href="/ng/#/ticket/{{cat_alias}}/{{ticket.ats_ticket_id}}-{{ticket.alias}}" class="list-group-item {{getClassnameByStatus(ticket.status)}}" ng-repeat="ticket in tickets">
+	  <a href="#/ticket/{{cat_alias}}/{{ticket.ats_ticket_id}}-{{ticket.alias}}" class="list-group-item {{getClassnameByStatus(ticket.status)}}" ng-repeat="ticket in tickets">
         <span class="badge">{{ticket.status}}</span>
         <span class="list-group-item-heading">#{{ticket.ats_ticket_id}} - {{ticket.title}} <span class="text-muted small">Assigned to {{ticket.assigned_name}}</span></span>
         <p class="list-group-item-text small">

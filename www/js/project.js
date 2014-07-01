@@ -31,9 +31,9 @@ app.controller("CategoriesCtrl", function($scope, $http, $rootScope, $interval) 
 app.controller("TicketsCtrl", function($scope, $http, $routeParams, $rootScope, $interval) {
   $rootScope.loading = true;
   if ($routeParams.alias)
-    var tickets_url = '/support/support-tickets/'+$routeParams.alias+'?format=json';
+    var tickets_url = '/support/support-tickets/'+$routeParams.alias+'?format=json&callback=JSON_CALLBACK';
   else
-    var tickets_url = '/support/support-tickets/?view=my&format=json';
+    var tickets_url = '/support/support-tickets/?view=my&format=json&callback=JSON_CALLBACK';
     
   $http.get(tickets_url).
     success(function(data, status, headers, config) {
@@ -75,7 +75,7 @@ app.controller("TicketCtrl", function($scope, $http, $routeParams, $rootScope, $
     success(function(data, status, headers, config) {
       $scope.ticket = data;
 
-      var user_url = '/support/support-tickets/?view=jusers&format=json&user_id=';
+      var user_url = '/support/support-tickets/?view=jusers&format=json&callback=JSON_CALLBACK&user_id=';
       user_url += data.created_by;
 
       $http.get(user_url).
@@ -94,7 +94,7 @@ app.controller("TicketCtrl", function($scope, $http, $routeParams, $rootScope, $
 });
 
 app.controller("PostsCtrl", function($scope, $http, $routeParams, $rootScope) {
-  var posts_url = '/index.php?option=com_ats&view=posts&Itemid=174&format=json&ats_ticket_id=';
+  var posts_url = '/index.php?option=com_ats&view=posts&Itemid=174&format=json&callback=JSON_CALLBACK&ats_ticket_id=';
   posts_url += parseInt($routeParams.alias,10);
    $rootScope.loading = true;
   $http.get(posts_url).
@@ -108,7 +108,7 @@ app.controller("PostsCtrl", function($scope, $http, $routeParams, $rootScope) {
 });
 
 app.controller("PostCtrl", function($scope, $http, $routeParams) {
-  var posts_url = '/index.php?option=com_ats&view=posts&task=saveItemid=174&format=json&ats_ticket_id=';
+  var posts_url = '/index.php?option=com_ats&view=posts&task=saveItemid=174&format=json&callback=JSON_CALLBACK&ats_ticket_id=';
   posts_url += parseInt($routeParams.alias,10);
   $scope.loading = true;
   $http.get(posts_url).
